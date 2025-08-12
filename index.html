@@ -1,162 +1,385 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Society Management Portal</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 text-gray-900 font-sans">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADSS RUHUNA — Internal Operating System</title>
+  <meta name="description" content="ADSS RUHUNA society internal portal for documents & trackers" />
 
-  <!-- Header -->
-  <header class="bg-blue-600 text-white shadow-lg">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold">Society Management Portal</h1>
-      <nav class="space-x-4 hidden md:block">
-        <button class="nav-btn hover:underline" data-section="home">Home</button>
-        <button class="nav-btn hover:underline" data-section="general">General Usage</button>
-        <button class="nav-btn hover:underline" data-section="finance">Finance</button>
-        <button class="nav-btn hover:underline" data-section="marketing">Marketing</button>
-        <button class="nav-btn hover:underline" data-section="pr">Public Relations</button>
-        <button class="nav-btn hover:underline" data-section="personal">Personal Development</button>
-        <button class="nav-btn hover:underline" data-section="research">Research & Analysis</button>
-        <button class="nav-btn hover:underline" data-section="operations">Operations & Academic</button>
-      </nav>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Alpine.js for interactivity -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+
+  <!-- Simple favicon (SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧭</text></svg>">
+
+  <style>
+    /* Small custom tweaks */
+    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(6px); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800">
+
+  <header class="sticky top-0 z-50 bg-white/70 glass border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-4">
+          <div class="rounded-full bg-indigo-600 text-white w-12 h-12 flex items-center justify-center text-xl font-bold shadow">AD</div>
+          <div>
+            <h1 class="text-lg font-semibold">ADSS RUHUNA</h1>
+            <p class="text-sm text-slate-600">Internal Operating System — Documents & Trackers</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <nav class="hidden md:flex items-center gap-4 text-sm">
+            <a href="#home" class="py-2 px-3 rounded hover:bg-slate-100">Home</a>
+            <a href="#documents" class="py-2 px-3 rounded hover:bg-slate-100">Documents</a>
+            <a href="#trackers" class="py-2 px-3 rounded hover:bg-slate-100">Trackers</a>
+            <a href="#sections" class="py-2 px-3 rounded hover:bg-slate-100">Sections</a>
+            <a href="#settings" class="py-2 px-3 rounded hover:bg-slate-100">Settings</a>
+          </nav>
+
+          <div class="flex items-center gap-2">
+            <button class="inline-flex items-center gap-2 px-3 py-2 rounded bg-indigo-600 text-white shadow hover:opacity-95" @click="document.getElementById('modal-add').classList.remove('hidden')">
+              + Add Link
+            </button>
+            <div class="text-sm text-slate-500">Signed in as <strong>President</strong></div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-6 py-8">
+  <main class="max-w-7xl mx-auto p-6 grid gap-6 lg:grid-cols-3">
+    <!-- Left column: Overview -->
+    <section id="home" class="lg:col-span-1 bg-white p-6 rounded-2xl shadow">
+      <h2 class="text-xl font-semibold mb-2">Welcome — ADSS RUHUNA</h2>
+      <p class="text-sm text-slate-600 mb-4">This portal hosts core documents and trackers for each society section. Replace placeholder links with your real file storage links (Google Drive, SharePoint, OneDrive, or internal URLs).</p>
 
-    <!-- Home Section -->
-    <section id="home" class="section">
-      <div class="text-center space-y-4">
-        <h2 class="text-4xl font-bold text-blue-600">Welcome to the Society Management Portal</h2>
-        <p class="text-lg text-gray-700">Easily manage all documents, trackers, and activities for your society in one place.</p>
-        <div class="grid md:grid-cols-3 gap-6 mt-8">
-          <div class="p-6 bg-white shadow rounded-lg hover:shadow-xl transition">
-            <h3 class="text-xl font-semibold text-blue-500">Centralized Documents</h3>
-            <p class="text-gray-600 mt-2">All core documents organized per section for easy access.</p>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3">
+          <div class="p-2 rounded bg-indigo-50 text-indigo-600">📁</div>
+          <div>
+            <div class="text-sm font-medium">Documents</div>
+            <div class="text-xs text-slate-500">Annual plans, policies, reports.</div>
           </div>
-          <div class="p-6 bg-white shadow rounded-lg hover:shadow-xl transition">
-            <h3 class="text-xl font-semibold text-blue-500">Real-time Tracking</h3>
-            <p class="text-gray-600 mt-2">Track attendance, deadlines, and collaborations effortlessly.</p>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <div class="p-2 rounded bg-green-50 text-green-600">📊</div>
+          <div>
+            <div class="text-sm font-medium">Trackers</div>
+            <div class="text-xs text-slate-500">Attendance, finance, campaigns, and more.</div>
           </div>
-          <div class="p-6 bg-white shadow rounded-lg hover:shadow-xl transition">
-            <h3 class="text-xl font-semibold text-blue-500">Beautiful Interface</h3>
-            <p class="text-gray-600 mt-2">Simple, intuitive, and mobile-friendly design.</p>
+        </div>
+
+        <div class="pt-3 border-t">
+          <div class="text-sm text-slate-500">Quick actions</div>
+          <div class="flex gap-2 mt-2">
+            <button class="px-3 py-2 rounded bg-slate-100 text-slate-700 text-sm">Import CSV</button>
+            <button class="px-3 py-2 rounded bg-slate-100 text-slate-700 text-sm">Export Snapshot</button>
+            <button class="px-3 py-2 rounded bg-indigo-600 text-white text-sm">Open Dashboard</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Dynamic Sections -->
-    <section id="general" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">General Usage (Society-wide)</h2>
-      <div class="space-y-4">
+    <!-- Middle column: Documents list -->
+    <section id="documents" class="lg:col-span-2 bg-white p-6 rounded-2xl shadow">
+      <div class="flex items-start justify-between">
         <div>
-          <button class="toggle-btn bg-blue-100 px-4 py-2 rounded">Documents</button>
-          <ul class="toggle-content list-disc ml-6 hidden">
-            <li>Annual Action Plan</li>
-            <li>Constitution & Bylaws</li>
-            <li>Member Handbook</li>
-            <li>Meeting Agendas & Minutes</li>
-            <li>Annual & Mid-Year Reports</li>
-            <li>Policy Documents</li>
-          </ul>
+          <h2 class="text-xl font-semibold">Core Documents</h2>
+          <p class="text-sm text-slate-500">Click any item to open the link. Replace the '#' hrefs with your actual file links.</p>
         </div>
-        <div>
-          <button class="toggle-btn bg-green-100 px-4 py-2 rounded">Trackers</button>
-          <ul class="toggle-content list-disc ml-6 hidden">
-            <li>Member Database</li>
-            <li>Task & Deadline Tracker</li>
-            <li>Attendance Tracker</li>
-            <li>Collaboration Tracker</li>
-            <li>Document Log Tracker</li>
-          </ul>
+
+        <div class="flex items-center gap-3">
+          <input x-model="search" placeholder="Search documents..." class="px-3 py-2 rounded border text-sm" />
+          <select x-model="filter" class="px-3 py-2 rounded border text-sm">
+            <option value="all">All sections</option>
+            <option value="general">General</option>
+            <option value="finance">Finance</option>
+            <option value="marketing">Marketing</option>
+            <option value="pr">Public Relations</option>
+            <option value="personal">Personal Dev</option>
+            <option value="research">Research</option>
+            <option value="ops">Operations</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-4 grid gap-4">
+        <!-- Document groups rendered by JS -->
+        <div id="doc-list" class="space-y-3">
+          <!-- Populated by script -->
         </div>
       </div>
     </section>
 
-    <section id="finance" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Finance Section</h2>
-      <div class="space-y-4">
-        <div>
-          <button class="toggle-btn bg-blue-100 px-4 py-2 rounded">Documents</button>
-          <ul class="toggle-content list-disc ml-6 hidden">
-            <li>Annual Budget Plan</li>
-            <li>Monthly Financial Statements</li>
-            <li>Project Funding Proposals</li>
-            <li>Invoice & Receipt Records</li>
-            <li>Audit Reports</li>
-            <li>Grant Applications & Reports</li>
-            <li>Legal Compliance Documents</li>
-          </ul>
-        </div>
-        <div>
-          <button class="toggle-btn bg-green-100 px-4 py-2 rounded">Trackers</button>
-          <ul class="toggle-content list-disc ml-6 hidden">
-            <li>Expense Tracker</li>
-            <li>Income Tracker</li>
-            <li>Cash Flow Tracker</li>
-            <li>Fundraising Progress Tracker</li>
-            <li>Outstanding Payments Tracker</li>
-            <li>Asset Inventory Tracker</li>
-            <li>Audit Compliance Checklist</li>
-          </ul>
-        </div>
+    <!-- Right column: Trackers overview -->
+    <section id="trackers" class="bg-white p-6 rounded-2xl shadow">
+      <h2 class="text-lg font-semibold mb-2">Trackers</h2>
+      <p class="text-sm text-slate-500 mb-4">Fast access to key trackers used across the society.</p>
+
+      <ul class="space-y-2 text-sm">
+        <!-- Tracker items generated by JS -->
+        <li class="flex items-center justify-between p-3 rounded border" id="tracker-sample"> 
+          <div>
+            <div class="font-medium">Member Database</div>
+            <div class="text-xs text-slate-500">Contact & participation log</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <a class="text-xs px-3 py-1 rounded bg-slate-100">Open</a>
+            <a class="text-xs px-3 py-1 rounded bg-indigo-600 text-white">Edit</a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="pt-4">
+        <h3 class="text-sm font-semibold">Attach/Replace Links</h3>
+        <p class="text-xs text-slate-500 mb-2">Use the &quot;Add Link&quot; button to attach the document/tracker link and section.</p>
       </div>
     </section>
-
-    <!-- Repeat for other sections -->
-    <section id="marketing" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Marketing Section</h2>
-      <p>Documents and trackers for marketing go here...</p>
-    </section>
-
-    <section id="pr" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Public Relations Section</h2>
-      <p>Documents and trackers for PR go here...</p>
-    </section>
-
-    <section id="personal" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Personal Development Section</h2>
-      <p>Documents and trackers for personal development go here...</p>
-    </section>
-
-    <section id="research" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Research & Analysis Section</h2>
-      <p>Documents and trackers for research go here...</p>
-    </section>
-
-    <section id="operations" class="section hidden">
-      <h2 class="text-2xl font-bold mb-4">Operations & Academic Management Section</h2>
-      <p>Documents and trackers for operations go here...</p>
-    </section>
-
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center py-4">
-    <p>&copy; 2025 Society Management Portal. All rights reserved.</p>
+  <!-- Sections detailed page -->
+  <section id="sections" class="max-w-7xl mx-auto p-6">
+    <div class="bg-white rounded-2xl shadow p-6">
+      <h2 class="text-xl font-semibold mb-4">All Sections — Documents & Trackers</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <!-- Repeating card for each section -->
+        <template id="section-card-template">
+          <div class="p-4 border rounded-lg">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded bg-indigo-50 flex items-center justify-center text-indigo-600">S</div>
+              <div>
+                <h3 class="font-semibold">Section name</h3>
+                <div class="text-xs text-slate-500">Short description</div>
+              </div>
+            </div>
+
+            <ul class="mt-3 space-y-2 text-sm">
+              <!-- items inserted by JS -->
+            </ul>
+          </div>
+        </template>
+      </div>
+
+      <div class="mt-6 text-xs text-slate-500">Tip: Click any document to open. Use the 'Add Link' form to attach public Drive/SharePoint links or internal URLs.</div>
+    </div>
+  </section>
+
+  <!-- Settings / Footer -->
+  <footer id="settings" class="max-w-7xl mx-auto p-6 text-sm text-slate-500">
+    <div class="bg-white p-6 rounded-2xl shadow text-slate-600 flex items-center justify-between">
+      <div>
+        <div class="font-semibold">Design notes</div>
+        <div class="text-xs">Built with Tailwind CDN + Alpine.js. All links are placeholders — replace with your storage URLs.</div>
+      </div>
+      <div class="text-xs">© ADSS RUHUNA — Internal Operating System</div>
+    </div>
   </footer>
 
-  <!-- JS for Tab Navigation and Toggle -->
+  <!-- Add Link Modal (hidden by default) -->
+  <div id="modal-add" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/40" @click="document.getElementById('modal-add').classList.add('hidden')"></div>
+    <div class="relative bg-white rounded-2xl p-6 w-full max-w-xl shadow-lg">
+      <h3 class="text-lg font-semibold mb-3">Add / Update Document or Tracker Link</h3>
+      <form id="add-link-form" class="space-y-3">
+        <div>
+          <label class="block text-xs text-slate-600">Title</label>
+          <input id="link-title" class="w-full px-3 py-2 border rounded" placeholder="e.g. Annual Action Plan" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-600">Section</label>
+          <select id="link-section" class="w-full px-3 py-2 border rounded">
+            <option value="general">General</option>
+            <option value="finance">Finance</option>
+            <option value="marketing">Marketing</option>
+            <option value="pr">Public Relations</option>
+            <option value="personal">Personal Development</option>
+            <option value="research">Research</option>
+            <option value="ops">Operations</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-600">Link (URL)</label>
+          <input id="link-url" class="w-full px-3 py-2 border rounded" placeholder="https://drive.google.com/..." />
+        </div>
+        <div class="flex items-center justify-end gap-2">
+          <button type="button" class="px-3 py-2 rounded border" @click="document.getElementById('modal-add').classList.add('hidden')">Cancel</button>
+          <button type="submit" class="px-3 py-2 rounded bg-indigo-600 text-white">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Minimal script to populate lists and handle add link -->
   <script>
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById(btn.dataset.section).classList.remove('hidden');
+    // Sample data object containing all documents & trackers (replace with your actual links)
+    const DATA = {
+      documents: [
+        { title: 'Annual Action Plan', section: 'general', url: '#' },
+        { title: 'Constitution & Bylaws', section: 'general', url: '#' },
+        { title: 'Member Handbook', section: 'general', url: '#' },
+        { title: 'Annual & Mid-Year Reports', section: 'general', url: '#' },
+
+        // Finance
+        { title: 'Annual Budget Plan', section: 'finance', url: '#' },
+        { title: 'Monthly Financial Statements', section: 'finance', url: '#' },
+        { title: 'Audit Reports', section: 'finance', url: '#' },
+
+        // Marketing
+        { title: 'Marketing Strategy Document', section: 'marketing', url: '#' },
+        { title: 'Brand Guidelines', section: 'marketing', url: '#' },
+
+        // PR
+        { title: 'PR Strategy Document', section: 'pr', url: '#' },
+        { title: 'Sponsorship Packages & Proposals', section: 'pr', url: '#' },
+
+        // Personal Dev
+        { title: 'Training Curriculum', section: 'personal', url: '#' },
+        { title: 'Mentorship Program Guidelines', section: 'personal', url: '#' },
+
+        // Research
+        { title: 'Research Collaboration Agreements', section: 'research', url: '#' },
+        { title: 'Publication Guidelines', section: 'research', url: '#' },
+
+        // Ops
+        { title: 'Curriculum & Study Plan Documents', section: 'ops', url: '#' },
+        { title: 'Project Documentation Templates', section: 'ops', url: '#' },
+      ],
+
+      trackers: [
+        { title: 'Member Database', section: 'general', url: '#' },
+        { title: 'Task & Deadline Tracker', section: 'general', url: '#' },
+        { title: 'Attendance Tracker', section: 'general', url: '#' },
+        { title: 'Expense Tracker', section: 'finance', url: '#' },
+        { title: 'Income Tracker', section: 'finance', url: '#' },
+        { title: 'Campaign Performance Tracker', section: 'marketing', url: '#' },
+        { title: 'Sponsorship Tracker', section: 'pr', url: '#' },
+        { title: 'Training Attendance & Feedback Tracker', section: 'personal', url: '#' },
+        { title: 'Research Project Tracker', section: 'research', url: '#' },
+        { title: 'Project Progress Tracker', section: 'ops', url: '#' }
+      ]
+    };
+
+    // Simple rendering
+    function renderDocs(filter = 'all', search = ''){
+      const list = document.getElementById('doc-list');
+      list.innerHTML = '';
+
+      const groups = {};
+      DATA.documents.forEach(d => {
+        if ((filter === 'all' || d.section === filter) && d.title.toLowerCase().includes(search.toLowerCase())){
+          groups[d.section] = groups[d.section] || [];
+          groups[d.section].push(d);
+        }
       });
+
+      Object.keys(groups).forEach(section => {
+        const card = document.createElement('div');
+        card.className = 'p-4 border rounded-lg';
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="font-semibold capitalize">${section.replace(/[-_]/g,' ')}</div>
+            <div class="text-xs text-slate-500">${groups[section].length} item(s)</div>
+          </div>
+          <ul class="mt-3 space-y-2 text-sm">
+            ${groups[section].map(d => `
+              <li class=\"flex items-center justify-between p-2 rounded hover:bg-slate-50\">
+                <a href=\"${d.url}\" target=\"_blank\" class=\"truncate\">${d.title}</a>
+                <div class=\"flex items-center gap-2\">
+                  <a href=\"${d.url}\" target=\"_blank\" class=\"text-xs px-2 py-1 rounded bg-slate-100\">Open</a>
+                  <button class=\"text-xs px-2 py-1 rounded bg-indigo-600 text-white\" onclick=\"editLink('${escapeJs(d.title)}')\">Edit</button>
+                </div>
+              </li>
+            `).join('')}
+          </ul>
+        `;
+        list.appendChild(card);
+      });
+
+      if (Object.keys(groups).length === 0){
+        list.innerHTML = '<div class="p-4 text-sm text-slate-500">No documents found for this filter/search.</div>'
+      }
+    }
+
+    function renderTrackers(){
+      const cont = document.querySelector('#trackers ul');
+      cont.innerHTML = '';
+      DATA.trackers.forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center justify-between p-3 rounded border';
+        li.innerHTML = `
+          <div>
+            <div class=\"font-medium\">${t.title}</div>
+            <div class=\"text-xs text-slate-500\">${t.section}</div>
+          </div>
+          <div class=\"flex items-center gap-2\">
+            <a href=\"${t.url}\" class=\"text-xs px-3 py-1 rounded bg-slate-100\" target=\"_blank\">Open</a>
+            <a href=\"${t.url}\" class=\"text-xs px-3 py-1 rounded bg-indigo-600 text-white\" target=\"_blank\">Edit</a>
+          </div>
+        `;
+        cont.appendChild(li);
+      });
+    }
+
+    // Utility to escape JS string for onclick
+    function escapeJs(s){
+      return s.replace(/\\/g,'\\\\').replace(/'/g, "\\'");
+    }
+
+    function editLink(title){
+      const item = DATA.documents.find(d => d.title === title);
+      if (!item) return alert('Item not found');
+      document.getElementById('link-title').value = item.title;
+      document.getElementById('link-section').value = item.section;
+      document.getElementById('link-url').value = item.url;
+      document.getElementById('modal-add').classList.remove('hidden');
+    }
+
+    // Wire up form
+    document.getElementById('add-link-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const title = document.getElementById('link-title').value.trim();
+      const section = document.getElementById('link-section').value;
+      const url = document.getElementById('link-url').value.trim() || '#';
+      if (!title) return alert('Please enter a title');
+
+      // Update if exists, else add
+      const idx = DATA.documents.findIndex(d => d.title === title);
+      if (idx >= 0){
+        DATA.documents[idx].section = section;
+        DATA.documents[idx].url = url;
+      } else {
+        DATA.documents.push({ title, section, url });
+      }
+
+      document.getElementById('modal-add').classList.add('hidden');
+      renderDocs(window.currentFilter || 'all', window.currentSearch || '');
+      renderTrackers();
     });
 
-    document.querySelectorAll('.toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        content.classList.toggle('hidden');
-      });
+    // Search & filter binding (very small reactive layer)
+    window.currentFilter = 'all';
+    window.currentSearch = '';
+    const searchInput = document.querySelector('input[x-model="search"]');
+    const filterSelect = document.querySelector('select[x-model="filter"]');
+    if (searchInput) searchInput.addEventListener('input', e => {
+      window.currentSearch = e.target.value;
+      renderDocs(window.currentFilter, window.currentSearch);
     });
+    if (filterSelect) filterSelect.addEventListener('change', e => {
+      window.currentFilter = e.target.value;
+      renderDocs(window.currentFilter, window.currentSearch);
+    });
+
+    // Initial render
+    renderDocs();
+    renderTrackers();
+
   </script>
-
 </body>
 </html>
