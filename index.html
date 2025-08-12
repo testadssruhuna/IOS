@@ -1,249 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ADSS Ruhuna Internal Operations Portal</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ADSS Ruhuna — Internal Operations Portal</title>
+
+  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Boxicons -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
   <style>
     html { scroll-behavior: smooth; }
+    /* subtle scrollbar styles for sidebar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 8px; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- Sidebar -->
-  <aside class="fixed top-0 left-0 w-64 h-screen bg-blue-900 text-white flex flex-col shadow-lg z-50">
-    <div class="p-6 border-b border-blue-700 flex flex-col items-center">
-      <div class="bg-yellow-400 w-16 h-16 rounded-full flex items-center justify-center text-blue-900 font-bold text-lg">ADSS</div>
-      <h1 class="mt-4 text-lg font-semibold text-center">ADSS Ruhuna</h1>
-      <p class="text-sm text-blue-200">Internal Operations Portal</p>
+  <!-- Responsive sidebar / header container -->
+  <div class="min-h-screen flex">
+
+    <!-- Sidebar (desktop) -->
+    <aside id="sidebar"
+           class="fixed inset-y-0 left-0 z-40 w-64 bg-blue-900 text-white transform transition-transform duration-200
+                  lg:translate-x-0 -translate-x-full lg:relative lg:block">
+      <div class="p-6 border-b border-blue-700 flex flex-col items-center">
+        <div class="bg-yellow-400 w-16 h-16 rounded-full flex items-center justify-center text-blue-900 font-bold text-lg">ADSS</div>
+        <h1 class="mt-4 text-lg font-semibold text-center">ADSS Ruhuna</h1>
+        <p class="text-sm text-blue-200">Internal Operations Portal</p>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto mt-6 px-3 pb-6">
+        <ul class="space-y-2">
+          <li><a href="#general" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-home mr-3 text-xl'></i> General Usage</a></li>
+          <li><a href="#finance" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-dollar mr-3 text-xl'></i> Finance</a></li>
+          <li><a href="#marketing" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-bullhorn mr-3 text-xl'></i> Marketing</a></li>
+          <li><a href="#pr" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-message-dots mr-3 text-xl'></i> Public Relations</a></li>
+          <li><a href="#personal" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-user-pin mr-3 text-xl'></i> Personal Development</a></li>
+          <li><a href="#research" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-analyse mr-3 text-xl'></i> Research & Analysis</a></li>
+          <li><a href="#operations" class="flex items-center p-3 rounded-md hover:bg-blue-800"><i class='bx bx-cog mr-3 text-xl'></i> Operations</a></li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-blue-700 text-center text-xs text-blue-200">
+        © 2025 ADSS Ruhuna
+      </div>
+    </aside>
+
+    <!-- Main area -->
+    <div class="flex-1 lg:ml-64">
+
+      <!-- Topbar for mobile -->
+      <header class="sticky top-0 z-30 bg-white border-b border-gray-200 lg:hidden">
+        <div class="flex items-center justify-between px-4 py-3">
+          <div class="flex items-center gap-3">
+            <button id="btnOpenSidebar" aria-label="Open menu" class="p-2 rounded-md bg-blue-900 text-white">
+              <i class='bx bx-menu text-2xl'></i>
+            </button>
+            <div class="flex items-center gap-3">
+              <div class="bg-yellow-400 w-10 h-10 rounded-full flex items-center justify-center text-blue-900 font-bold">ADSS</div>
+              <div>
+                <div class="text-sm font-semibold">ADSS Ruhuna</div>
+                <div class="text-xs text-gray-500">Internal Operations Portal</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- optional quick links/actions -->
+            <button id="btnSearch" class="p-2 rounded-md hover:bg-gray-100" title="Search"><i class='bx bx-search'></i></button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page content -->
+      <main class="p-6 space-y-8">
+
+        <!-- Hero -->
+        <section class="bg-gradient-to-r from-blue-800 to-blue-600 text-white rounded-xl p-6 shadow">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-1">Welcome to ADSS Ruhuna Internal Operations Portal</h2>
+          <p class="text-blue-100 max-w-2xl">Access internal documents, trackers, and operational resources across all sections. Use the menu to navigate. (Links open in new tab.)</p>
+        </section>
+
+        <!-- Utility: instruction / how to add links -->
+        <section class="bg-white rounded-lg p-4 shadow">
+          <p class="text-sm text-gray-600">To connect a document/tracker: replace <code class="bg-gray-100 px-1 rounded">href="#"</code> with the actual URL (Google Drive, SharePoint, or file server). Links open in a new tab.</p>
+        </section>
+
+        <!-- Sections: each section is responsive; on small screens Documents/Trackers collapse as accordions -->
+        <!-- 1. General Usage -->
+        <section id="general" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">1. General Usage (Society-wide)</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="general-docs" aria-expanded="true">
+                  <i class='bx bx-chevron-down'></i>
+                </button>
+              </div>
+              <ul id="general-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" class="text-blue-700 hover:underline" href="#">Annual Action Plan (objectives, milestones, responsibilities)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Constitution &amp; Bylaws (rules, amendments)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Member Handbook (roles, expectations, contact info)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Meeting Agendas &amp; Minutes (with follow-up action points)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Annual &amp; Mid-Year Reports (achievements, challenges, goals)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Policy Documents (ethics, data privacy, conduct, event policies)</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="general-track" aria-expanded="true">
+                  <i class='bx bx-chevron-down'></i>
+                </button>
+              </div>
+              <ul id="general-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Member Database (name, role, contact, joining date, participation log)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Task &amp; Deadline Tracker (ongoing projects &amp; deadlines)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Attendance Tracker (meetings, training, events)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Collaboration Tracker (internal &amp; external partnerships)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Document Log Tracker (versions &amp; updates)</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Finance -->
+        <section id="finance" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">2. Finance Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="finance-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="finance-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Annual Budget Plan</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Monthly Financial Statements (income, expenses, balance)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Project Funding Proposals</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Invoice &amp; Receipt Records</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Audit Reports</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Grant Applications &amp; Reports</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Legal Compliance Documents (licenses, tax-related, agreements)</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="finance-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="finance-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Expense Tracker (category-wise &amp; project-wise)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Income Tracker (sponsorships, membership fees, event revenue)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Cash Flow Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Fundraising Progress Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Outstanding Payments Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Asset Inventory Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Audit Compliance Checklist</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Marketing -->
+        <section id="marketing" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">3. Marketing Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="marketing-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="marketing-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Marketing Strategy Document</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Brand Guidelines (logos, colors, fonts, tone)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Campaign Proposals</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Content Calendar</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Event Promotion Plans</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Website Maintenance Log</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Social Media Policy</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="marketing-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="marketing-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Campaign Performance Tracker (KPIs, reach, engagement)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Design Asset Tracker (banners, flyers, videos)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Content Approval Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Social Media Post Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Website Update Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Public Feedback Tracker</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Public Relations -->
+        <section id="pr" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">4. Public Relations Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="pr-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="pr-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">PR Strategy Document</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Sponsorship Packages &amp; Proposals</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Media Contact List</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Press Release Templates</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Crisis Communication Plan</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Partnership MOUs</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="pr-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="pr-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Sponsorship Tracker (contacted, confirmed, pending)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Media Outreach Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Partnership Engagement Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Public Feedback Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Event Coverage Tracker (photos, press mentions)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Follow-up Tracker (thank-you notes, relationship maintenance)</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Personal Development -->
+        <section id="personal" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">5. Personal Development Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="personal-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="personal-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Training Curriculum</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Event &amp; Workshop Plans</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Mentorship Program Guidelines</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Volunteer Guidelines</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Member Engagement Plans</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="personal-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="personal-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Training Attendance &amp; Feedback Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Event Participation Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Skill Development Progress Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Member Recognition Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Volunteer Hours Tracker</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Research & Analysis -->
+        <section id="research" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">6. Research & Analysis Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="research-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="research-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Research Collaboration Agreements</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Publication Guidelines</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Research Proposal Templates</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Conference &amp; Journal Opportunities List</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Data Privacy &amp; Ethics Guidelines</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="research-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="research-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Research Project Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Publication Submission Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Collaboration Partner Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Research Skills Training Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Funding Opportunity Tracker</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Operations -->
+        <section id="operations" class="scroll-mt-20">
+          <h3 class="text-xl font-bold mb-3">7. Operations & Academic Management Section</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Documents</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="ops-docs" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="ops-docs" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Curriculum &amp; Study Plan Documents</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Workshop &amp; Seminar Plans</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Project Documentation Templates</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Software Development Guidelines</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Case Study Library</a></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg shadow">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold">Trackers</h4>
+                <button class="sm:hidden toggle-btn text-gray-500" data-target="ops-track" aria-expanded="true"><i class='bx bx-chevron-down'></i></button>
+              </div>
+              <ul id="ops-track" class="mt-3 list-disc pl-5 space-y-2">
+                <li><a target="_blank" rel="noopener" href="#">Academic Event Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Project Progress Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Resource Inventory Tracker (software, datasets, tools)</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Research &amp; Study Group Tracker</a></li>
+                <li><a target="_blank" rel="noopener" href="#">Performance Evaluation Tracker (learning outcomes)</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
     </div>
-    <nav class="flex-1 overflow-y-auto mt-6">
-      <ul class="space-y-2 px-4">
-        <li><a href="#general" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-home mr-3 text-xl"></i> General Usage</a></li>
-        <li><a href="#finance" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-dollar mr-3 text-xl"></i> Finance</a></li>
-        <li><a href="#marketing" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-bullhorn mr-3 text-xl"></i> Marketing</a></li>
-        <li><a href="#pr" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-message-dots mr-3 text-xl"></i> Public Relations</a></li>
-        <li><a href="#personal" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-user-pin mr-3 text-xl"></i> Personal Development</a></li>
-        <li><a href="#research" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-analyse mr-3 text-xl"></i> Research & Analysis</a></li>
-        <li><a href="#operations" class="flex items-center p-2 hover:bg-blue-800 rounded-lg"><i class="bx bx-cog mr-3 text-xl"></i> Operations</a></li>
-      </ul>
-    </nav>
-    <div class="p-4 border-t border-blue-700 text-center text-xs text-blue-200">
-      © 2025 ADSS Ruhuna
-    </div>
-  </aside>
+  </div>
 
-  <!-- Main Content -->
-  <main class="ml-64 p-8 space-y-16">
+  <!-- JavaScript: sidebar toggle & accordion behavior -->
+  <script>
+    // Sidebar open (mobile)
+    const btnOpen = document.getElementById('btnOpenSidebar');
+    const sidebar = document.getElementById('sidebar');
 
-    <!-- Hero -->
-    <section class="bg-gradient-to-r from-blue-800 to-blue-600 text-white rounded-xl p-8 shadow-lg">
-      <h2 class="text-3xl font-bold mb-2">Welcome to ADSS Ruhuna Internal Operations Portal</h2>
-      <p class="text-blue-100 max-w-2xl">Access all internal documents, trackers, and operational resources across all sections of ADSS Ruhuna. Navigate using the menu on the left.</p>
-    </section>
+    if (btnOpen) {
+      btnOpen.addEventListener('click', () => {
+        // toggle translate-x for sidebar
+        if (sidebar.classList.contains('-translate-x-full')) {
+          sidebar.classList.remove('-translate-x-full');
+        } else {
+          sidebar.classList.add('-translate-x-full');
+        }
+      });
+    }
 
-    <!-- 1. General Usage -->
-    <section id="general">
-      <h3 class="text-2xl font-bold mb-4">1. General Usage (Society-wide)</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Annual Action Plan</a></li>
-            <li><a href="#">Constitution & Bylaws</a></li>
-            <li><a href="#">Member Handbook</a></li>
-            <li><a href="#">Meeting Agendas & Minutes</a></li>
-            <li><a href="#">Annual & Mid-Year Reports</a></li>
-            <li><a href="#">Policy Documents</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Member Database</a></li>
-            <li><a href="#">Task & Deadline Tracker</a></li>
-            <li><a href="#">Attendance Tracker</a></li>
-            <li><a href="#">Collaboration Tracker</a></li>
-            <li><a href="#">Document Log Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    // Close sidebar when clicking outside on small screens
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth < 1024) {
+        const isClickInsideSidebar = sidebar.contains(e.target);
+        const isClickOnButton = btnOpen && btnOpen.contains(e.target);
+        if (!isClickInsideSidebar && !isClickOnButton) {
+          sidebar.classList.add('-translate-x-full');
+        }
+      }
+    });
 
-    <!-- 2. Finance -->
-    <section id="finance">
-      <h3 class="text-2xl font-bold mb-4">2. Finance Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Annual Budget Plan</a></li>
-            <li><a href="#">Monthly Financial Statements</a></li>
-            <li><a href="#">Project Funding Proposals</a></li>
-            <li><a href="#">Invoice & Receipt Records</a></li>
-            <li><a href="#">Audit Reports</a></li>
-            <li><a href="#">Grant Applications & Reports</a></li>
-            <li><a href="#">Legal Compliance Documents</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Expense Tracker</a></li>
-            <li><a href="#">Income Tracker</a></li>
-            <li><a href="#">Cash Flow Tracker</a></li>
-            <li><a href="#">Fundraising Progress Tracker</a></li>
-            <li><a href="#">Outstanding Payments Tracker</a></li>
-            <li><a href="#">Asset Inventory Tracker</a></li>
-            <li><a href="#">Audit Compliance Checklist</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    // Accordion toggles for small screens
+    const toggles = Array.from(document.querySelectorAll('.toggle-btn'));
+    toggles.forEach(btn => {
+      const targetId = btn.dataset.target;
+      const targetEl = document.getElementById(targetId);
+      btn.addEventListener('click', () => {
+        if (!targetEl) return;
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        // toggle visibility (on small screens we allow collapsing)
+        if (targetEl.style.display === 'none') {
+          targetEl.style.display = '';
+          btn.querySelector('i').classList.remove('bx-chevron-up');
+          btn.querySelector('i').classList.add('bx-chevron-down');
+        } else {
+          targetEl.style.display = 'none';
+          btn.querySelector('i').classList.remove('bx-chevron-down');
+          btn.querySelector('i').classList.add('bx-chevron-up');
+        }
+      });
+    });
 
-    <!-- 3. Marketing -->
-    <section id="marketing">
-      <h3 class="text-2xl font-bold mb-4">3. Marketing Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Marketing Strategy Document</a></li>
-            <li><a href="#">Brand Guidelines</a></li>
-            <li><a href="#">Campaign Proposals</a></li>
-            <li><a href="#">Content Calendar</a></li>
-            <li><a href="#">Event Promotion Plans</a></li>
-            <li><a href="#">Website Maintenance Log</a></li>
-            <li><a href="#">Social Media Policy</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Campaign Performance Tracker</a></li>
-            <li><a href="#">Design Asset Tracker</a></li>
-            <li><a href="#">Content Approval Tracker</a></li>
-            <li><a href="#">Social Media Post Tracker</a></li>
-            <li><a href="#">Website Update Tracker</a></li>
-            <li><a href="#">Public Feedback Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    // Set initial accordion visibility based on screen size
+    function setInitialAccordion() {
+      const isSmall = window.innerWidth < 640; // sm breakpoint in Tailwind
+      toggles.forEach(btn => {
+        const targetId = btn.dataset.target;
+        const targetEl = document.getElementById(targetId);
+        if (!targetEl) return;
+        if (isSmall) {
+          // show toggle button and collapse content
+          btn.style.display = '';
+          targetEl.style.display = 'none';
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('i').classList.remove('bx-chevron-down');
+          btn.querySelector('i').classList.add('bx-chevron-up');
+        } else {
+          // hide toggle button and expand content
+          btn.style.display = 'none';
+          targetEl.style.display = '';
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('i').classList.remove('bx-chevron-up');
+          btn.querySelector('i').classList.add('bx-chevron-down');
+        }
+      });
+    }
 
-    <!-- 4. Public Relations -->
-    <section id="pr">
-      <h3 class="text-2xl font-bold mb-4">4. Public Relations Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">PR Strategy Document</a></li>
-            <li><a href="#">Sponsorship Packages & Proposals</a></li>
-            <li><a href="#">Media Contact List</a></li>
-            <li><a href="#">Press Release Templates</a></li>
-            <li><a href="#">Crisis Communication Plan</a></li>
-            <li><a href="#">Partnership MOUs</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Sponsorship Tracker</a></li>
-            <li><a href="#">Media Outreach Tracker</a></li>
-            <li><a href="#">Partnership Engagement Tracker</a></li>
-            <li><a href="#">Public Feedback Tracker</a></li>
-            <li><a href="#">Event Coverage Tracker</a></li>
-            <li><a href="#">Follow-up Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Personal Development -->
-    <section id="personal">
-      <h3 class="text-2xl font-bold mb-4">5. Personal Development Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Training Curriculum</a></li>
-            <li><a href="#">Event & Workshop Plans</a></li>
-            <li><a href="#">Mentorship Program Guidelines</a></li>
-            <li><a href="#">Volunteer Guidelines</a></li>
-            <li><a href="#">Member Engagement Plans</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Training Attendance & Feedback Tracker</a></li>
-            <li><a href="#">Event Participation Tracker</a></li>
-            <li><a href="#">Skill Development Progress Tracker</a></li>
-            <li><a href="#">Member Recognition Tracker</a></li>
-            <li><a href="#">Volunteer Hours Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. Research & Analysis -->
-    <section id="research">
-      <h3 class="text-2xl font-bold mb-4">6. Research & Analysis Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Research Collaboration Agreements</a></li>
-            <li><a href="#">Publication Guidelines</a></li>
-            <li><a href="#">Research Proposal Templates</a></li>
-            <li><a href="#">Conference & Journal Opportunities List</a></li>
-            <li><a href="#">Data Privacy & Ethics Guidelines</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Research Project Tracker</a></li>
-            <li><a href="#">Publication Submission Tracker</a></li>
-            <li><a href="#">Collaboration Partner Tracker</a></li>
-            <li><a href="#">Research Skills Training Tracker</a></li>
-            <li><a href="#">Funding Opportunity Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. Operations -->
-    <section id="operations">
-      <h3 class="text-2xl font-bold mb-4">7. Operations & Academic Management Section</h3>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Documents</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Curriculum & Study Plan Documents</a></li>
-            <li><a href="#">Workshop & Seminar Plans</a></li>
-            <li><a href="#">Project Documentation Templates</a></li>
-            <li><a href="#">Software Development Guidelines</a></li>
-            <li><a href="#">Case Study Library</a></li>
-          </ul>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <h4 class="font-semibold text-lg mb-2">Trackers</h4>
-          <ul class="list-disc pl-5 space-y-1">
-            <li><a href="#">Academic Event Tracker</a></li>
-            <li><a href="#">Project Progress Tracker</a></li>
-            <li><a href="#">Resource Inventory Tracker</a></li>
-            <li><a href="#">Research & Study Group Tracker</a></li>
-            <li><a href="#">Performance Evaluation Tracker</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </main>
+    window.addEventListener('resize', setInitialAccordion);
+    window.addEventListener('DOMContentLoaded', () => {
+      // default: hide sidebar on mobile
+      if (window.innerWidth < 1024) sidebar.classList.add('-translate-x-full');
+      setInitialAccordion();
+    });
+  </script>
 
 </body>
 </html>
